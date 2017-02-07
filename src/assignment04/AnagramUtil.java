@@ -1,7 +1,23 @@
+/**
+ * @author Jiahui Chen 
+ * @uID    u0980890
+ * @author Emerson Ford
+ * @uID			
+ * CS 2420
+ * Assignment 4
+ * I pledge that the work done here was my own and that I have learned how to write this program, 
+ * such that I could throw it out and restart and finish it in a timely manner. I am not turning in 
+ * any work that I cannot understand, describe, or recreate. Jiahui Chen & Emerson Ford
+ */
 package assignment04;
 
 import java.util.Comparator;
 
+/**
+ * 
+ * @author Jiahui Chen
+ * @author Emerson Ford
+ */
 public class AnagramUtil {
 	
 	/**
@@ -57,6 +73,8 @@ public class AnagramUtil {
 	// array of words, in no particular order. It returns an empty array if
 	// there are no anagrams in the input array.
 	public static String[] getLargestAnagramGroup(String[] wordArray){
+		insertionSort(wordArray, new stringComparator());		//sorting words in input array
+		
 		
 	}
 
@@ -90,6 +108,19 @@ public class AnagramUtil {
 		}
 	}
 	
+	/**
+	 * 
+	 * 
+	 */
+	public static class stringComparator implements Comparator<String> {
+
+		/**
+		 * 
+		 */
+		@Override
+		public int compare(String previous, String current) {
+			int order = sort(previous).compareToIgnoreCase(sort(current));
+			return order;
+		}
+	}
 }
-
-
