@@ -4,8 +4,14 @@ import java.util.Comparator;
 
 public class AnagramUtil {
 	
-	// This method returns the sorted version of the input string. The
-	// sorting must be accomplished using an insertion sort.  
+	/**
+	 * This method sorts the letters in a String by passing them into
+	 * the insertionSort method as an array of Characters. Returns as sorted 
+	 * version of the word, with original capitalization preserved.
+	 * 
+	 * @param 	word			Word that's letters are to be sorted. 
+	 * @return	sortedWord		Sorted parameter word, with original capitalization.
+	 */
 	public static String sort(String word){
 		String sortedWord = "";
 		Character[] charArray = new Character[word.length()];	//Character array holding letters of word	
@@ -19,19 +25,24 @@ public class AnagramUtil {
 		return sortedWord;										//returning sorted letters of word
 	}
 
-	// This generic method sorts the input array using an insertion sort and
-	// the input Comparator object.
+	/**
+	 * Uses the insertion sort algorithm to sort the elements in the parameter
+	 * array. Compares value of elements using the parameter comparator. 
+	 * 
+	 * @param 	list		Generic array that will be sorted.
+	 * @param 	comparator	Comparator comparing values of parameter array. 
+	 */
 	public static <T> void insertionSort(T[] list, Comparator<? super T> comparator){
 		
 		for (int index = 1; index < list.length; index ++){		//for each element in parameter array
 			int position = index;
 			T currentVal = list[position];
 			
-			//while the value in a previous position is alphabetically after the current char
-			//while (list[position - 1] > currentVal && position > 0){	
-				list[position] = list[position - 1];				//moving the alphabetically later character up a position
+			//while the value in a previous position is less than the current value
+			while (comparator.compare(list[position - 1], currentVal) > 0 && position > 0) {	
+				list[position] = list[position - 1];				//moving the lesser value up a position
 				position = position - 1;							//moving position back 1
-				list[position] = currentVal;						//moving smaller char to new position (1 index back)					
+				list[position] = currentVal;						//moving smaller value to new position (1 index back)					
 			}
 		}
 		
@@ -59,14 +70,23 @@ public class AnagramUtil {
 
 	/**
 	 * Class that defines the character comparator, used to sort each letter
-	 * in a word. 
-	 *
+	 * in a word.
 	 */
 	public static class charComparator implements Comparator<Character> {
 		
+		/**
+		 * Compares the lowercase verions of 2 parameter Characters using 
+		 * the .compare() method in the Character class. 
+		 * 
+		 * @param	previous	First character to be compared.
+		 * @param	current		Second character to be compared. 
+		 * @return 	Returns a negative number if previous alphabetically before current,
+		 * 		 	Returns a positive number if previous is alphabetically after current,
+		 * 			Returns 0 if previous and current are the same letter. 
+		 */
 		@Override
-		public int compare(Character o1, Character o2) {
-			return Character.compare(Character.toLowerCase(o1), Character.toLowerCase(o2));
+		public int compare(Character previous, Character current) {
+			return Character.compare(Character.toLowerCase(previous), Character.toLowerCase(current));
 		}
 	}
 	
