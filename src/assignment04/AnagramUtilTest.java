@@ -18,10 +18,21 @@ import java.util.Comparator;
 import org.junit.Test;
 
 public class AnagramUtilTest {
+	//Comparators for testing from AnagrmUtil class
+	Comparator<Character> charCompare = new AnagramUtil.charComparator();
+	Comparator<String> stringCompare = new AnagramUtil.stringComparator();
+	
+	//basic String comparator that will compare strings without sorting their letters first
+	Comparator<String> noSortStringCompare = new Comparator<String>() {
 
+		@Override
+		public int compare(String arg0, String arg1) {
+			return arg0.compareToIgnoreCase(arg1);
+		}	
+	};
+	
 	@Test
-	public void testSortCharacters(){
-		Comparator<Character> charCompare = new AnagramUtil.charComparator();
+	public void testSortCharacters(){		
 		
 		String backwardsAlphabet = "cba";
 		String alphabet = "abc";
@@ -29,15 +40,33 @@ public class AnagramUtilTest {
 	}
 	
 	@Test
-	public void testInsertionSortStrings() {
-		//creating String comparater 
-		Comparator<String> stringCompare = new AnagramUtil.stringComparator();
+	public void testInsertionSortStrings() {		
 		
-		//simple alphabetical test of insertionSort
-		String[] backwardsAlphabetical = {"zebra", "yak"}; //"rat", "cat", "baboon", "ant"};
-		String[] alphabetical =  {"yak", "zebra"};//{"ant", "baboon", "cat", "rat", "yak", "zebra"};
-		AnagramUtil.insertionSort(backwardsAlphabetical, stringCompare);
+		//tests if insertionSort can put list of words in alphabetical order
+		String[] backwardsAlphabetical = {"zebra", "yak", "rat", "cat", "baboon", "ant"};
+		String[] alphabetical =  {"ant", "baboon", "cat", "rat", "yak", "zebra"};
+		AnagramUtil.insertionSort(backwardsAlphabetical, noSortStringCompare);
 		assertArrayEquals(alphabetical, backwardsAlphabetical);
+	}
+	
+	@Test
+	public void testInsertionSortIntegers(){
+		
+	}
+	
+	@Test
+	public void testInsertionSortCharacters(){
+		
+	}
+	
+	@Test
+	public void testInsertionSortEmpty(){
+		
+		//testing if a null array is passed into insertion sort
+		String[] nullArray = new String[0];
+		String[] empty = new String[0];
+		AnagramUtil.insertionSort(nullArray, stringCompare);
+		assertArrayEquals(empty, nullArray);
 	}
 	
 	

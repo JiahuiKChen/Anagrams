@@ -78,7 +78,7 @@ public class AnagramUtil {
 
 	/**
 	 * Finds and returns the largest group of anagrams in a parameter String array.
-	 * Returns and empty array if the parameter array is null. 
+	 * Returns and empty array if the parameter array is empty. 
 	 * 
 	 * @param 	wordArray					String array that will be looked through to find largest group of anagrams. 
 	 * @return	largestGroupOfAnagrams		String array holding the largest group of anagrams.
