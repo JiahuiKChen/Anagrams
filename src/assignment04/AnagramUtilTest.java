@@ -20,11 +20,24 @@ import org.junit.Test;
 public class AnagramUtilTest {
 
 	@Test
-	public void test() {
-		fail("Not yet implemented");
+	public void testSortCharacters(){
+		Comparator<Character> charCompare = new AnagramUtil.charComparator();
 		
-		Comparator c = new AnagramUtil.charComparator();
+		String backwardsAlphabet = "cba";
+		String alphabet = "abc";
+		assertEquals(alphabet, AnagramUtil.sort(backwardsAlphabet));
+	}
+	
+	@Test
+	public void testInsertionSortStrings() {
+		//creating String comparater 
+		Comparator<String> stringCompare = new AnagramUtil.stringComparator();
 		
+		//simple alphabetical test of insertionSort
+		String[] backwardsAlphabetical = {"zebra", "yak"}; //"rat", "cat", "baboon", "ant"};
+		String[] alphabetical =  {"yak", "zebra"};//{"ant", "baboon", "cat", "rat", "yak", "zebra"};
+		AnagramUtil.insertionSort(backwardsAlphabetical, stringCompare);
+		assertArrayEquals(alphabetical, backwardsAlphabetical);
 	}
 	
 	

@@ -1,5 +1,5 @@
 /**
- * @author Jiahui Chen 
+ * @author Jiahui Chen  
  * @uID    u0980890
  * @author Emerson Ford
  * @uID			
@@ -11,9 +11,14 @@
  */
 package assignment04;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 
 /**
+ * Class holding methods for insertion sort, determining whether or not 2 
+ * words are anagrams, and finding largest group of anagrams in a list of words.
+ * Also holds inner classes for String and Character comparators.
  * 
  * @author Jiahui Chen
  * @author Emerson Ford
@@ -32,12 +37,14 @@ public class AnagramUtil {
 		String sortedWord = "";
 		Character[] charArray = new Character[word.length()];	//Character array holding letters of word	
 		
-		for(int i = 0; i < word.length(); i++) {				//putting each letter in parameter word into
-			charArray[i] = word.charAt(i);						//a Character array that will be sorted
+		for(int index = 0; index < word.length(); index++) {				//putting each letter in parameter word into
+			charArray[index] = word.charAt(index);						//a Character array that will be sorted
 		}
 		insertionSort(charArray, new charComparator());			//insertion sorting the Character array
 		
-		sortedWord = charArray.toString();					
+		for (int index = 0; index < charArray.length; index ++){
+			sortedWord += charArray[index];
+		}
 		return sortedWord;										//returning sorted letters of word
 	}
 
@@ -55,7 +62,7 @@ public class AnagramUtil {
 			T currentVal = list[position];
 			
 			//while the value in a previous position is less than the current value
-			while (comparator.compare(list[position - 1], currentVal) > 0 && position > 0) {	
+			while (position > 0 && comparator.compare(list[position - 1], currentVal) > 0) {	
 				list[position] = list[position - 1];				//moving the lesser value up a position
 				position = position - 1;							//moving position back 1
 				list[position] = currentVal;						//moving smaller value to new position (1 index back)					
@@ -66,16 +73,52 @@ public class AnagramUtil {
 
 	// This method returns true if the two input strings are anagrams of each other, otherwise returns false.
 	public static boolean areAnagrams(String word1, String word2){
-		
+		return false;
 	}
 
-	// This method returns the largest group of anagrams in the input
-	// array of words, in no particular order. It returns an empty array if
-	// there are no anagrams in the input array.
+	/**
+	 * Finds and returns the largest group of anagrams in a parameter String array.
+	 * Returns and empty array if the parameter array is null. 
+	 * 
+	 * @param 	wordArray					String array that will be looked through to find largest group of anagrams. 
+	 * @return	largestGroupOfAnagrams		String array holding the largest group of anagrams.
+	 */
 	public static String[] getLargestAnagramGroup(String[] wordArray){
-		insertionSort(wordArray, new stringComparator());		//sorting words in input array
 		
+		if (wordArray == null){			//if the input array is null, return an empty array
+			String[] empty = {};
+			return empty;
+		}
+		insertionSort(wordArray, new stringComparator());			//sorting words in input array
+		ArrayList<String> largestGroup = new ArrayList<String>();	//ArrayList holding largest group of anagrams
+		ArrayList<String> currentGroup = new ArrayList<String>();	//ArrayList holding current group of anagrams
 		
+		for (int index = 0; index < wordArray.length; index ++){
+			
+			if (index != 0){				//if there is a previous index in the array
+				
+				//if the previous word and current word in the sorted array are not anagrams of each other
+				if (!areAnagrams(wordArray[index], wordArray[index - 1])){	
+
+					//if the current list of anagrams is larger than the largest list of anagrams
+					if (largestGroup.size() < currentGroup.size()){
+						largestGroup.clear();
+						largestGroup.addAll(currentGroup);		//the current list becomes the largest list
+					}
+					currentGroup.clear(); 				//the current list is cleared if current word is not anagram with previous word
+				}
+			}
+			currentGroup.add(wordArray[index]);		//current word is added to current list regardless of whether it's an anagram or not
+		}
+		
+		//checks if current list is larger than largest list after all elements are iterated over in case current is now larger
+		if (currentGroup.size() > largestGroup.size()){
+			largestGroup.clear();
+			largestGroup.addAll(currentGroup);		//if current list is larger it becomes the largest list
+		}
+		String[] largestGroupOfAnagrams = new String[largestGroup.size()];	//array to be returned
+		largestGroup.toArray(largestGroupOfAnagrams);						//adding all words in largest list of anagrams to array
+		return largestGroupOfAnagrams;
 	}
 
 	// Behaves the same as the previous method, but reads the list of
@@ -83,11 +126,12 @@ public class AnagramUtil {
 	// one word per line. If the file does not exist or is empty, the method
 	// returns an empty array because there are no anagrams.
 	public static String[] getLargestAnagramGroup(String word){
-		
+		String[] placeHold = new String[0];
+		return placeHold;
 	}
 
 	/**
-	 * Class that defines the character comparator, used to sort each letter
+	 * Class that defines the character comparator, used to compare each letter
 	 * in a word.
 	 */
 	public static class charComparator implements Comparator<Character> {
@@ -109,17 +153,22 @@ public class AnagramUtil {
 	}
 	
 	/**
-	 * 
-	 * 
+	 * Class that defines the String comparator, used to compare each word
+	 * in a list. 
 	 */
 	public static class stringComparator implements Comparator<String> {
 
 		/**
+		 * Compares the sorted version of the parameter Strings and 
+		 * ignores the case of the letters, uses .compareToIgnoreCase() method in String class. 
 		 * 
+		 * @param		previous	String first word to be compared.
+		 * @param		current		String second word to be compared.
+		 * @return		order		integer indicating the compared values of the parameter Strings.
 		 */
 		@Override
 		public int compare(String previous, String current) {
-			int order = sort(previous).compareToIgnoreCase(sort(current));
+			int order = sort(previous).compareToIgnoreCase(sort(current));	//compares Strings with sorted letters
 			return order;
 		}
 	}
