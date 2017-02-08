@@ -32,16 +32,24 @@ public class AnagramUtilTest {
 	};
 	
 	@Test
-	public void testSortCharacters(){		
-		
+	public void testSort(){		
+		//tests if the sort method can alphabetically order letters in a word
 		String backwardsAlphabet = "cba";
 		String alphabet = "abc";
 		assertEquals(alphabet, AnagramUtil.sort(backwardsAlphabet));
 	}
 	
 	@Test
+	public void testSortCapitalized(){
+		//tests if the sort method can sort letters regardless of capitalization
+		//and return them in their original capitalization state
+		String backwardsCapAlphabet = "CbA";
+		String capAlphabet = "AbC";
+		assertEquals(capAlphabet, AnagramUtil.sort(backwardsCapAlphabet));
+	}
+	
+	@Test
 	public void testInsertionSortStrings() {		
-		
 		//tests if insertionSort can put list of words in alphabetical order
 		String[] backwardsAlphabetical = {"zebra", "yak", "rat", "cat", "baboon", "ant"};
 		String[] alphabetical =  {"ant", "baboon", "cat", "rat", "yak", "zebra"};
@@ -61,7 +69,6 @@ public class AnagramUtilTest {
 	
 	@Test
 	public void testInsertionSortEmpty(){
-		
 		//testing if a null array is passed into insertion sort
 		String[] nullArray = new String[0];
 		String[] empty = new String[0];
@@ -69,6 +76,10 @@ public class AnagramUtilTest {
 		assertArrayEquals(empty, nullArray);
 	}
 	
-	
-
+	@Test
+	public void testGetLargestAnagramGroup(){
+		String[] threeAnagrams = {"cat", "rice", "cire", "dog", "irce"};
+		String[] anagramsOfRice = {"rice", "cire", "irce"}; 
+		assertArrayEquals(anagramsOfRice, AnagramUtil.getLargestAnagramGroup(threeAnagrams));
+	}
 }

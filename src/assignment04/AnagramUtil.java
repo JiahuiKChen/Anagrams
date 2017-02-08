@@ -34,17 +34,24 @@ public class AnagramUtil {
 	 * @return	sortedWord		Sorted parameter word, with original capitalization.
 	 */
 	public static String sort(String word){
+		
+		if (word == null){	//if the parameter is null
+			return null;
+		}
+		
 		String sortedWord = "";
 		Character[] charArray = new Character[word.length()];	//Character array holding letters of word	
 		
 		for(int index = 0; index < word.length(); index++) {				//putting each letter in parameter word into
 			charArray[index] = word.charAt(index);						//a Character array that will be sorted
 		}
+		
 		insertionSort(charArray, new charComparator());			//insertion sorting the Character array
 		
 		for (int index = 0; index < charArray.length; index ++){
 			sortedWord += charArray[index];
 		}
+		
 		return sortedWord;										//returning sorted letters of word
 	}
 
@@ -71,8 +78,18 @@ public class AnagramUtil {
 		
 	}
 
-	// This method returns true if the two input strings are anagrams of each other, otherwise returns false.
+	/**
+	 * Method that returns a boolean indicating if the 2 parameter words are anagrams of each other.
+	 * 
+	 * @param 	word1		String word compared to determine if it's an anagram of word2.
+	 * @param 	word2		String word compared to determine if it's an anagram of word1.
+	 * @return	boolean		true or false based on if the 2 parameters are anagrams.
+	 */
 	public static boolean areAnagrams(String word1, String word2){
+		
+		if (sort(word1).equalsIgnoreCase(sort(word2))){
+			return true;
+		}
 		return false;
 	}
 
@@ -89,6 +106,7 @@ public class AnagramUtil {
 			String[] empty = {};
 			return empty;
 		}
+		
 		insertionSort(wordArray, new stringComparator());			//sorting words in input array
 		ArrayList<String> largestGroup = new ArrayList<String>();	//ArrayList holding largest group of anagrams
 		ArrayList<String> currentGroup = new ArrayList<String>();	//ArrayList holding current group of anagrams
@@ -117,7 +135,7 @@ public class AnagramUtil {
 			largestGroup.addAll(currentGroup);		//if current list is larger it becomes the largest list
 		}
 		String[] largestGroupOfAnagrams = new String[largestGroup.size()];	//array to be returned
-		largestGroup.toArray(largestGroupOfAnagrams);						//adding all words in largest list of anagrams to array
+		largestGroupOfAnagrams = largestGroup.toArray(largestGroupOfAnagrams);						//adding all words in largest list of anagrams to array
 		return largestGroupOfAnagrams;
 	}
 
