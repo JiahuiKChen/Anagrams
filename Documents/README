@@ -1,0 +1,12 @@
+ Jiahui Chen 
+ u0980890
+ Emerson Ford
+ u0407846		
+ CS 2420
+ Assignment 4
+ I pledge that the work done here was my own and that I have learned how to write this program, 
+ such that I could throw it out and restart and finish it in a timely manner. I am not turning in 
+ any work that I cannot understand, describe, or recreate. Jiahui Chen & Emerson Ford
+ 
+ In order to maintain the original capitalization and letter order String words being sorted the String Comparator 
+ calls the sort method on the parameter Strings so that the Strings in the list are not altered. 

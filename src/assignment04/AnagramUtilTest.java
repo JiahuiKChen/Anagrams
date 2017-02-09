@@ -1,8 +1,8 @@
 /**
- * @author Jiahui Chen 
+ * @author Jiahui Chen  
  * @uID    u0980890
  * @author Emerson Ford
- * @uID			
+ * @uID	   u0407846		
  * CS 2420
  * Assignment 4
  * I pledge that the work done here was my own and that I have learned how to write this program, 
