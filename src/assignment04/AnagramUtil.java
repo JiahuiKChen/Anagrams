@@ -12,8 +12,8 @@
 package assignment04;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Scanner;
 
 /**
  * Class holding methods for insertion sort, determining whether or not 2 
@@ -144,8 +144,18 @@ public class AnagramUtil {
 	// one word per line. If the file does not exist or is empty, the method
 	// returns an empty array because there are no anagrams.
 	public static String[] getLargestAnagramGroup(String word){
-		String[] placeHold = new String[0];
-		return placeHold;
+		ArrayList<String> strArray = new ArrayList<>();
+		
+		Scanner scanner = new Scanner(word);
+		while(scanner.hasNext()) {
+			String token = scanner.next();
+			strArray.add(token);
+		}
+		scanner.close();
+		
+		String[] objectStr = new String[strArray.size()];
+		
+		return getLargestAnagramGroup(strArray.toArray(objectStr));
 	}
 
 	/**
