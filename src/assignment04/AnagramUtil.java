@@ -75,7 +75,6 @@ public class AnagramUtil {
 				list[position] = currentVal;						//moving smaller value to new position (1 index back)					
 			}
 		}
-		
 	}
 
 	/**
