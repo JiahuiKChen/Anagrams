@@ -62,7 +62,7 @@ public class AnagramUtil {
 	 * @param 	list		Generic array that will be sorted.
 	 * @param 	comparator	Comparator comparing values of parameter array. 
 	 */
-	public static <T> void insertionSort(T[] list, Comparator<? super T> comparator){
+	public static <T> void insertionSort(T[] list, Comparator<? super T> comparator) {
 		
 		for (int index = 1; index < list.length; index ++){		//for each element in parameter array
 			int position = index;
@@ -84,7 +84,7 @@ public class AnagramUtil {
 	 * @param 	word2		String word compared to determine if it's an anagram of word1.
 	 * @return	boolean		true or false based on if the 2 parameters are anagrams.
 	 */
-	public static boolean areAnagrams(String word1, String word2){
+	public static boolean areAnagrams(String word1, String word2) {
 		
 		if (sort(word1).equalsIgnoreCase(sort(word2))){
 			return true;
