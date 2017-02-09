@@ -14,8 +14,16 @@ package assignment04;
 public class Main {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		for(int i = 1; i < 1500000; i += Math.pow(i, 1.1)) {
+			System.out.println(i);
+		}
 
+	}
+	
+	public static void getAreAnagrams() {
+		for(int multipleOfTen = 0; multipleOfTen < 100; multipleOfTen++) {
+			
+		}
 	}
 
 }
