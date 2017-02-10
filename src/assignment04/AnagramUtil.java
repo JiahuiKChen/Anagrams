@@ -12,7 +12,9 @@
 package assignment04;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -106,7 +108,9 @@ public class AnagramUtil {
 			return empty;
 		}
 		
-		insertionSort(wordArray, new stringComparator());			//sorting words in input array
+		//insertionSort(wordArray, new stringComparator());			//sorting words in input array
+		List<String> wordArrayAsList = Arrays.asList(wordArray);
+		wordArrayAsList.sort(new stringComparator());
 		ArrayList<String> largestGroup = new ArrayList<String>();	//ArrayList holding largest group of anagrams
 		ArrayList<String> currentGroup = new ArrayList<String>();	//ArrayList holding current group of anagrams
 		
@@ -138,10 +142,14 @@ public class AnagramUtil {
 		return largestGroupOfAnagrams;
 	}
 
-	// Behaves the same as the previous method, but reads the list of
-	// words from the input filename. It is assumed that the file contains
-	// one word per line. If the file does not exist or is empty, the method
-	// returns an empty array because there are no anagrams.
+	/**
+	 * Finds and returns the largest group of anagrams in a file specified by the
+	 * passed in String which is its name. Calls the other getLargestAnagramGroup method,
+	 * passing in the String array of all the text in the file to do the actual sorting and finding.
+	 * 
+	 * @param 	word		String file name of file to be searched through.
+	 * @return	String[]	String array returned by other getLargestAnagramGroup method.
+	 */
 	public static String[] getLargestAnagramGroup(String word){
 		ArrayList<String> strArray = new ArrayList<>();
 		
