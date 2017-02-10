@@ -11,15 +11,19 @@
  */
 package assignment04;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
 public class Main {
 	public static double totalTime;
 	
 
 	public static void main(String[] args) {
-		getAreAnagramsCompTimeWithMultiThreading();
+		//getAreAnagramsCompTimeWithMultiThreading();
+		getLargestAnagramGroupWithMultiThreading();
 	}
 	
 	// True or false, areAnagrams will take the same computational time.
@@ -96,6 +100,66 @@ public class Main {
 			totalTime /= ((int) 100 / Runtime.getRuntime().availableProcessors()) * Runtime.getRuntime().availableProcessors();
 			System.out.println(intCharCount + "\t" + totalTime);
 		}
+	}
+	
+	public static void getLargestAnagramGroupWithMultiThreading() {
+		FileReader fReader = null;
+
+		try {
+			fReader = new FileReader("Resources/words_english");
+		}
+		catch(Exception e) {
+			System.exit(0);
+		}
+		
+		BufferedReader bReader = new BufferedReader(fReader);
+		Scanner scanner = new Scanner(bReader);
+		
+		ArrayList<String> stringList = new ArrayList<>();
+		while(scanner.hasNext()) {
+			String word = scanner.next();
+			stringList.add(word);
+		}
+		
+		for(double wordCount = 1; wordCount < 15000; wordCount *= 1.5) {
+			int wordCountInt = ((int) wordCount);
+			totalTime = 0;
+			
+			Thread[] threadArr = new Thread[Runtime.getRuntime().availableProcessors()];
+			
+			for(int threadCount = 0; threadCount < threadArr.length; threadCount++) {
+				threadArr[threadCount] = new Thread(new Runnable() {
+					public void run() {
+						for(int iteration = 0; iteration < ((int) 100 / Runtime.getRuntime().availableProcessors()); iteration++) {
+							String[] passThisIntoFunction = new String[wordCountInt];
+							for(int getWordInd = 0; getWordInd < wordCountInt; getWordInd++) {
+								stringList.get(new Random().nextInt(stringList.size()));
+							}
+							
+							double startTime = System.nanoTime();
+							AnagramUtil.getLargestAnagramGroup(passThisIntoFunction);
+							double endTime = System.nanoTime();
+							addToTotalTime((endTime - startTime) / 1_000_000_000);
+						}
+					}
+				});
+			
+				threadArr[threadCount].start();
+			}
+			
+			for(int i = 0; i < threadArr.length; i++) {
+				try {
+					threadArr[i].join();
+				} 
+				catch(Exception e) {
+					System.out.println("lol");
+				}
+			}
+			
+			totalTime /= ((int) 100 / Runtime.getRuntime().availableProcessors()) * Runtime.getRuntime().availableProcessors();
+			System.out.println(wordCountInt + "\t" + totalTime);
+		}
+		
 	}
 
 	public static synchronized void addToTotalTime(double time) {
