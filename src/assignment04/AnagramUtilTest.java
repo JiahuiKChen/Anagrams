@@ -21,6 +21,7 @@ public class AnagramUtilTest {
 	//Comparators for testing from AnagrmUtil class
 	Comparator<Character> charCompare = new AnagramUtil.charComparator();
 	Comparator<String> stringCompare = new AnagramUtil.stringComparator();
+	Comparator<Integer> intCompare = new AnagramUtil.intComparator();
 	
 	//basic String comparator that will compare strings without sorting their letters first
 	Comparator<String> noSortStringCompare = new Comparator<String>() {
@@ -59,12 +60,23 @@ public class AnagramUtilTest {
 	
 	@Test
 	public void testInsertionSortIntegers(){
-		
+		Integer[] test = new Integer[] {4, 5, 2, 1, 0};
+		AnagramUtil.insertionSort(test, intCompare);
+		assertArrayEquals(test, new Integer[] {0, 1, 2, 4, 5});
+	}
+	
+	@Test
+	public void testInsertionSortIntegers1(){
+		Integer[] test = new Integer[] {1, 5, 2, 1, 0};
+		AnagramUtil.insertionSort(test, intCompare);
+		assertArrayEquals(test, new Integer[] {0, 1, 1, 2, 5});
 	}
 	
 	@Test
 	public void testInsertionSortCharacters(){
-		
+		Character[] test = new Character[] {'a', 'e', 'd', 'c'};
+		AnagramUtil.insertionSort(test, charCompare);
+		assertArrayEquals(test, new Character[] {'a', 'c', 'd', 'e'});
 	}
 	
 	@Test

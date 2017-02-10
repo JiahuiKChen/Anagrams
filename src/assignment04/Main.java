@@ -23,7 +23,9 @@ public class Main {
 
 	public static void main(String[] args) {
 		//getAreAnagramsCompTimeWithMultiThreading();
-		getLargestAnagramGroupWithMultiThreading();
+		//getLargestAnagramGroupWithMultiThreading();
+		//intInsertionSortWithMultiThreading();
+		charInsertionSortWithMultiThreading();
 	}
 	
 	// True or false, areAnagrams will take the same computational time.
@@ -133,7 +135,7 @@ public class Main {
 						for(int iteration = 0; iteration < ((int) 100 / Runtime.getRuntime().availableProcessors()); iteration++) {
 							String[] passThisIntoFunction = new String[wordCountInt];
 							for(int getWordInd = 0; getWordInd < wordCountInt; getWordInd++) {
-								stringList.get(new Random().nextInt(stringList.size()));
+								passThisIntoFunction[getWordInd] = stringList.get(new Random().nextInt(stringList.size()));
 							}
 							
 							double startTime = System.nanoTime();
@@ -162,6 +164,88 @@ public class Main {
 		
 	}
 
+	public static void intInsertionSortWithMultiThreading() {
+		for(double intCount = 1; intCount < 15000; intCount *= 1.5) {
+			int intCountInt = ((int) intCount);
+			totalTime = 0;
+			
+			Thread[] threadArr = new Thread[Runtime.getRuntime().availableProcessors()];
+			
+			for(int threadCount = 0; threadCount < threadArr.length; threadCount++) {
+				threadArr[threadCount] = new Thread(new Runnable() {
+					public void run() {
+						for(int iteration = 0; iteration < ((int) 100 / Runtime.getRuntime().availableProcessors()); iteration++) {
+							Integer[] passThisIntoFunction = new Integer[intCountInt];
+							for(int i = 0; i < intCountInt; i++) {
+								passThisIntoFunction[i] = new Random().nextInt(10000);
+							}
+							
+							double startTime = System.nanoTime();
+							AnagramUtil.insertionSort(passThisIntoFunction, new AnagramUtil.intComparator());
+							double endTime = System.nanoTime();
+							addToTotalTime((endTime - startTime) / 1_000_000_000);
+						}
+					}
+				});
+			
+				threadArr[threadCount].start();
+			}
+			
+			for(int i = 0; i < threadArr.length; i++) {
+				try {
+					threadArr[i].join();
+				} 
+				catch(Exception e) {
+					System.out.println("lol");
+				}
+			}
+			
+			totalTime /= ((int) 100 / Runtime.getRuntime().availableProcessors()) * Runtime.getRuntime().availableProcessors();
+			System.out.println(intCountInt + "\t" + totalTime);
+		}
+	}
+
+	public static void charInsertionSortWithMultiThreading() {
+		for(double charCount = 1; charCount < 15000; charCount *= 1.5) {
+			int charCountInt = ((int) charCount);
+			totalTime = 0;
+			
+			Thread[] threadArr = new Thread[Runtime.getRuntime().availableProcessors()];
+			
+			for(int threadCount = 0; threadCount < threadArr.length; threadCount++) {
+				threadArr[threadCount] = new Thread(new Runnable() {
+					public void run() {
+						for(int iteration = 0; iteration < ((int) 100 / Runtime.getRuntime().availableProcessors()); iteration++) {
+							Character[] passThisIntoFunction = new Character[charCountInt];
+							for(int i = 0; i < charCountInt; i++) {
+								passThisIntoFunction[i] = ((char) (97 + new Random().nextInt(26)));
+							}
+							
+							double startTime = System.nanoTime();
+							AnagramUtil.insertionSort(passThisIntoFunction, new AnagramUtil.charComparator());
+							double endTime = System.nanoTime();
+							addToTotalTime((endTime - startTime) / 1_000_000_000);
+						}
+					}
+				});
+			
+				threadArr[threadCount].start();
+			}
+			
+			for(int i = 0; i < threadArr.length; i++) {
+				try {
+					threadArr[i].join();
+				} 
+				catch(Exception e) {
+					System.out.println("lol");
+				}
+			}
+			
+			totalTime /= ((int) 100 / Runtime.getRuntime().availableProcessors()) * Runtime.getRuntime().availableProcessors();
+			System.out.println(charCountInt + "\t" + totalTime);
+		}
+	}
+	
 	public static synchronized void addToTotalTime(double time) {
 		totalTime += time;
 	}

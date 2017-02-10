@@ -207,4 +207,21 @@ public class AnagramUtil {
 			return order;
 		}
 	}
+	
+	public static class intComparator implements Comparator<Integer> {
+
+		/**
+		 * Compares the sorted version of the parameter Strings and 
+		 * ignores the case of the letters, uses .compareToIgnoreCase() method in String class. 
+		 * 
+		 * @param		previous	String first word to be compared.
+		 * @param		current		String second word to be compared.
+		 * @return		order		integer indicating the compared values of the parameter Strings.
+		 */
+		@Override
+		public int compare(Integer previous, Integer current) {
+			int order = previous.compareTo(current);
+			return order;
+		}
+	}
 }
