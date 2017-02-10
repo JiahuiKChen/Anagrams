@@ -10,3 +10,6 @@
  
  In order to maintain the original capitalization and letter order String words being sorted the String Comparator 
  calls the sort method on the parameter Strings so that the Strings in the list are not altered. 
+ 
+All of our test methods implemented multi threading to find the time it takes to run the methods. It creates a number of threads
+based on the number of CPU cores available.

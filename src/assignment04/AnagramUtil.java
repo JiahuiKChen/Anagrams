@@ -208,6 +208,12 @@ public class AnagramUtil {
 		}
 	}
 	
+	/**
+	 * Class that defines the Integer comparator, used to compare each
+	 * integer in a list.
+	 * @author emersonford
+	 *
+	 */
 	public static class intComparator implements Comparator<Integer> {
 
 		/**

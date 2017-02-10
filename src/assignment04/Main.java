@@ -23,11 +23,15 @@ public class Main {
 
 	public static void main(String[] args) {
 		//getAreAnagramsCompTimeWithMultiThreading();
-		//getLargestAnagramGroupWithMultiThreading();
+		getLargestAnagramGroupWithMultiThreading();
 		//intInsertionSortWithMultiThreading();
-		charInsertionSortWithMultiThreading();
+		//charInsertionSortWithMultiThreading();
 	}
 	
+	/**
+	 * Tests the getAreAnagrams with multiple different sizes.
+	 * Prints the results to the console.
+	 */
 	// True or false, areAnagrams will take the same computational time.
 	public static void getAreAnagramsCompTime() {
 		
@@ -59,6 +63,11 @@ public class Main {
 	
 	// An attempt to compute the times faster by utilizing multiple threads,
 	// which can utilize all of the cores in a multi-core processor.
+	
+	/**
+	 * Tests the getAreAnagrams with multiple different sizes. Utilizes multithreading.
+	 * Prints the results to the console.
+	 */
 	public static void getAreAnagramsCompTimeWithMultiThreading() {
 		for(double charCount = 1; charCount < 15000; charCount *= 1.5) {
 			int intCharCount = (int) charCount;
@@ -104,6 +113,10 @@ public class Main {
 		}
 	}
 	
+	/**
+	 * Tests the getLargestAnagramsGroup with multiple different sizes. Utilizes multithreading.
+	 * Prints the results to the console.
+	 */
 	public static void getLargestAnagramGroupWithMultiThreading() {
 		FileReader fReader = null;
 
@@ -140,6 +153,7 @@ public class Main {
 							
 							double startTime = System.nanoTime();
 							AnagramUtil.getLargestAnagramGroup(passThisIntoFunction);
+							//AnagramUtil.insertionSort(passThisIntoFunction, new AnagramUtil.stringComparator());
 							double endTime = System.nanoTime();
 							addToTotalTime((endTime - startTime) / 1_000_000_000);
 						}
@@ -164,6 +178,10 @@ public class Main {
 		
 	}
 
+	/**
+	 * Tests sorting between integers in an array. Utilizes multithreading.
+	 * Prints the results to the console.
+	 */
 	public static void intInsertionSortWithMultiThreading() {
 		for(double intCount = 1; intCount < 15000; intCount *= 1.5) {
 			int intCountInt = ((int) intCount);
@@ -205,6 +223,10 @@ public class Main {
 		}
 	}
 
+	/**
+	 * Tests sorting between characters in an array. Utilizes multithreading.
+	 * Prints the results to the console.
+	 */
 	public static void charInsertionSortWithMultiThreading() {
 		for(double charCount = 1; charCount < 15000; charCount *= 1.5) {
 			int charCountInt = ((int) charCount);
@@ -246,6 +268,10 @@ public class Main {
 		}
 	}
 	
+	/**
+	 * To ensure the threads don't access the totalTime variable at the same time.
+	 * @param time the value to add to the totalTime variable
+	 */
 	public static synchronized void addToTotalTime(double time) {
 		totalTime += time;
 	}

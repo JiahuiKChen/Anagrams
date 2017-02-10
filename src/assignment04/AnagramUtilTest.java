@@ -78,6 +78,13 @@ public class AnagramUtilTest {
 		AnagramUtil.insertionSort(test, charCompare);
 		assertArrayEquals(test, new Character[] {'a', 'c', 'd', 'e'});
 	}
+
+	@Test
+	public void testInsertionSortCharacters1(){
+		Character[] test = new Character[] {'b', 'e', 'c', 'c'};
+		AnagramUtil.insertionSort(test, charCompare);
+		assertArrayEquals(test, new Character[] {'b', 'c', 'c', 'e'});
+	}
 	
 	@Test
 	public void testInsertionSortEmpty(){
